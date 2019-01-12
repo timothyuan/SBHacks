@@ -4,7 +4,6 @@ var multer = require('multer');
 var router = express.Router();
 var path = require('path');
 var bodyParser = require('body-parser');
-var sha256 = require('js-sha256');
 var config = require('./config.js');
 
 var con = mysql.createConnection(config);
@@ -30,7 +29,7 @@ var upload = multer({storage: storage}).single('file');
 
 router.post('/register', function(req, res){
 	var user = req.body.username;
-	var pass = sha256(req.body.password);
+	var pass = req.body.password;
 	var sql = "INSERT INTO users (username, password) VALUES ('"+user+"', '"+pass+"')";
 	con.query(sql, function (err, result) {
 		if (err) {
@@ -46,7 +45,7 @@ router.post('/register', function(req, res){
 
 router.post('/login', function(req, res){
 	var user = req.body.username;
-	var pass = sha256(req.body.password);
+	var pass = req.body.password;
 	var sql = "SELECT * FROM users WHERE username = '"+user+"' AND password = '"+pass+"'";
 	con.query(sql, function (err, result) {
 		if (err) throw err;
