@@ -11,7 +11,7 @@ export class UploadModalComponent implements OnInit {
 
   @Input() username: string;
   @Input() id: string;
-  private fileToUpload: File = null;
+  fileToUpload: File = null;
 
   constructor(public activeModal: NgbActiveModal, private httpService: HttpService) { }
 
