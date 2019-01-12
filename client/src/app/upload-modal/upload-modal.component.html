@@ -1,0 +1,3 @@
+<input type="file" name="file" (change)="handleFileInput($event.target.files)"/>
+<button (click)="uploadFile()" [disabled]="fileToUpload==null">Upload Image</button>
+<button (click)="closeModal()">Close</button>
