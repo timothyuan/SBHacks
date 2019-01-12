@@ -14,10 +14,12 @@ export class UserComponent implements OnInit {
   username: string;
   id: string;
   images: string[];
+  url: string;
 
   constructor(private route: ActivatedRoute, private modalService: NgbModal, private httpService: HttpService) { }
 
   ngOnInit() {
+    this.url = window.location.origin;
     this.getParams();
     this.getImages();
   }

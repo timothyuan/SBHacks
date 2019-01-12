@@ -11,8 +11,6 @@ const httpOptions = {
 })
 export class HttpService {
 
-  private url = 'http://localhost:3000/user/'
-
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
@@ -20,7 +18,7 @@ export class HttpService {
       username: username,
       password: password
     }
-    return this.http.post<string>(this.url + 'login', data, httpOptions);
+    return this.http.post<string>(window.location.origin + '/user/login', data, httpOptions);
   }
 
   register(username: string, password: string): Observable<any> {
@@ -28,7 +26,7 @@ export class HttpService {
       username: username,
       password: password
     }
-    return this.http.post<string>(this.url + 'register', data, httpOptions);
+    return this.http.post<string>(window.location.origin + '/user/register', data, httpOptions);
   }
 
   upload(username: string, id: string, file: File): Observable<any> {
@@ -36,13 +34,13 @@ export class HttpService {
     uploadData.append('username', username);
     uploadData.append('id', id);
     uploadData.append('file', file);
-    return this.http.post<string>(this.url + 'upload', uploadData);
+    return this.http.post<string>(window.location.origin + '/user/upload', uploadData);
   }
 
   images(id: string): Observable<any>{
     let data = {
       id: id
     }
-    return this.http.post<string[]>(this.url + 'images', data);
+    return this.http.post<string[]>(window.location.origin + '/user/images', data);
   }
 }
