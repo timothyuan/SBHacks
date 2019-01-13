@@ -112,7 +112,7 @@ router.post('/images', function(req, res){
    	});
 });
 
-router.post('/check', function(req, res){
+router.get('/check', function(req, res){
 	res.send({isAllowed: true});
 });
 
