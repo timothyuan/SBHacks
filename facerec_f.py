@@ -11,6 +11,11 @@ import matplotlib.patches as patches
 
 import dlib
 
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", required=True,
+	help="path to the input image .dat file")
+args = vars(ap.parse_args())
+image = args["image"]
 #convert between BGR (used by opencv?) and RGB (used by matplotlib)
 
 def xywh_to_dlibrect(xywh):
@@ -77,7 +82,7 @@ for name in names:
     names[i] = names[i][firstslash + 1:lastdot]
     i = i + 1
 
-g = open("image.dat", 'rb')
+g = open(image, 'rb')
 test = np.fromstring(g.read(), dtype='float')
 #test = cv2.imread("image.png")
 #finalenc = get_face_encoding(test, extract_face(lbp_face_cascade, test))
