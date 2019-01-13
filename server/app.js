@@ -17,7 +17,7 @@ app.get('/image/:image', function(req, res) {
 });
 
 app.get('/check', function(req, res){
-	res.send({'isAllowed': 'true'});
+	res.send({isAllowed: true});
 });
 
 app.get('*', function(req, res) {
