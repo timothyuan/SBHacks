@@ -23,7 +23,7 @@ export class UploadModalComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
-  uploadFile(){
+  uploadFile() {
     this.httpService.upload(this.username, this.id, this.fileToUpload).subscribe(
       response => {
         console.log(response.id);

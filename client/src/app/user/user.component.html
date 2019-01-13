@@ -1,6 +1,7 @@
-<p>User: {{username}}</p>
+<div class="username"> {{username}} </div>
 <button (click)="openUploadModal()">Upload pictures for recognition</button>
 
 <div *ngFor="let image of images">
     <img src= "{{url}}/image/{{image}}" width="100" height="100"/>
 </div>
+

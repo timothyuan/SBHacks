@@ -1,11 +1,27 @@
+<div class = "loginpage">
+
+<div id="loginbox">
+
+<div class="toplogo">
+    <span>
+<img class="logoimg" src="../../assets/logo.png">
+</span>
+</div>
+
+
 <form (ngSubmit)="login()">
-<label for="username">Username</label>
-<input type="text" id="username" name="username" [(ngModel)]="username" required>
-<label for="password">Password</label>
-<input type="password" id="password" name="password" [(ngModel)]="password" required>
-<button type="submit">Login</button>
+<input type="text" placeholder="username" id="username" name="username" class="loginform" [(ngModel)]="username" required>
+<input type="password" placeholder="password" id="password" name="password" class="loginform" [(ngModel)]="password" required>
+
+<div style="width:100%;margin-top:1em;margin-bottom: 2em;">
+<button style="width:50%;float:left;" [routerLink]="['../register']">Create an account</button>
+<button style="width:50%;float:right;" class="loginbutton">Login</button>
+</div>
 </form>
 
-<button [routerLink]="['../register']">Create an account</button>
+
 
 <div *ngIf="message">{{message}}</div>
+
+</div>
+</div>

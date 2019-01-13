@@ -1,0 +1,42 @@
+.loginpage {
+    width: 100%;
+    margin-top: 100px;
+}
+
+#loginbox {
+    width: 500px;
+    margin: auto;
+    background-color: #eee;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    border-radius: 1em;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.toplogo {
+    width: 100%;
+    text-align: center;
+    vertical-align: center;
+}
+
+.logoimg {
+    align-self: center;
+    height: 100px;
+}
+
+.loginform {
+    width: 100%;
+    text-align: right;
+    background-color: #ffc56c;
+    padding: 1em;
+    border-style: none;
+    margin-top: 0.5em;
+    margin-bottom:0.5em;
+}
+
+.loginbutton : hover {
+    color: white;
+    background-color: #ffc56c;
+}
