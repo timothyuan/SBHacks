@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import pickle
-
+#don't use this one!!!
 face_cascade = cv2.CascadeClassifier('C:/Users/Toby/Desktop/whatiscs/cascades/data/haarcascade_frontalface_alt.xml')
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("trainer.yml")
