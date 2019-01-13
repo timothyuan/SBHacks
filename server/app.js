@@ -20,6 +20,10 @@ app.get('*', function(req, res) {
   res.sendFile(__dirname + '/dist/socialclient/index.html')
 })
 
+app.get('/check', function(req, res){
+	res.send({isAllowed: true});
+});
+
 app.listen(3000, '0.0.0.0', function() {
     console.log('Listening to port: ' + 3000);
 });
