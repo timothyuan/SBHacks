@@ -40,7 +40,7 @@ app.post('/check', function(req, res){
           isAllowed = false;
         }
         request({
-          url: 'http://6906cb5f.ngrok.io/switch',
+          url: 'http://b206bebb.ngrok.io/switch',
           qs: { q:isAllowed}}, function(err, response, body){
                 res.status(200).send({isAllowed: isAllowed});
         });
