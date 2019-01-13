@@ -5,6 +5,7 @@ var path = require('path');
 var cors = require('cors');
 var multer = require('multer');
 var spawn = require("child_process").spawn;
+var request = require('request');
 var user = require('./routes/user.js');
 
 var storage = multer.diskStorage({
@@ -38,7 +39,11 @@ app.post('/check', function(req, res){
         if(message=='No match\n'){
           isAllowed = false;
         }
-        res.status(200).send({isAllowed: isAllowed});
+        request({
+          url: 'http://6906cb5f.ngrok.io/switch',
+          qs: { q:isAllowed}}, function(err, response, body){
+                res.status(200).send({isAllowed: isAllowed});
+        });
     });
   })
 });
