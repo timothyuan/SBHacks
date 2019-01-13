@@ -24,8 +24,9 @@ export class UploadModalComponent implements OnInit {
 
   uploadFile(){
     this.httpService.upload(this.username, this.id, this.fileToUpload).subscribe(
-      message => {
-        console.log(message.id);
+      response => {
+        console.log(response.id);
+        console.log(response.message);
       },
       error => {
         console.log(error.status);

@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 import PIL.Image
 
@@ -7,6 +7,8 @@ import dlib
 import numpy as np
 
 import sys
+
+import os.path
 
 # rectangle format conversions
 
@@ -56,18 +58,23 @@ if __name__ == "__main__":
             success, loc = dlib_extract_face(img)
             if not success:
                 print('No face detected')
+                sys.stdout.flush()
                 exit()
             enc = get_face_encoding(img, loc)
             lastdot = filename.rfind('.')
             outfilename = filename[0:lastdot] + '.dat'
+            outfilename = outfilename.split('/')[-1]
 
             # open file in binary mode
-            f = open("./dat/"+outfilename, 'wb')
+
+            f = open('dat/'+outfilename, 'wb')
 
             # this is not a string in the sense of str() but a Python bytes sequence
             s = enc.tostring()
             f.write(s)
             f.close()
+            print('Success')
+            sys.stdout.flush()
 
             # how to read the data back out
 
@@ -76,3 +83,4 @@ if __name__ == "__main__":
 
     else:
         print('Need filename as argument')
+        sys.stdout.flush()
