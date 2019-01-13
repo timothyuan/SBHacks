@@ -112,4 +112,8 @@ router.post('/images', function(req, res){
    	});
 });
 
+router.post('/check', function(req, res){
+	res.send({isAllowed: true});
+});
+
 module.exports = router;
