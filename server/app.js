@@ -28,8 +28,8 @@ app.get('/image/:image', function(req, res) {
   res.sendFile(path.join(__dirname, '/uploads/'+req.params.image));
 });
 
-app.get('/check', function(req, res){
-  //upload(req, res, function(err) {
+app.post('/check', function(req, res){
+  upload(req, res, function(err) {
     var pythonProcess = spawn('python',["facerec_f.py", "-i" , "upload.dat"]);
     pythonProcess.stdout.on('data', (data) => {
         message = data.toString();
@@ -40,7 +40,7 @@ app.get('/check', function(req, res){
         }
         res.status(200).send({isAllowed: isAllowed});
     });
-  //})
+  })
 });
 
 app.get('*', function(req, res) {
