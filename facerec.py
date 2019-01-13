@@ -36,7 +36,7 @@ def extract_face(f_cascade, colored_img, scaleFactor=1.1):
     # print(faces);
     # assume one face
     if (len(faces) == 0):
-        print("No face found")
+        #print("No face found")
         return None
     return faces[0]
 
@@ -55,7 +55,7 @@ def get_face_encoding(img, loc):
     face_landmarks = get_face_landmarks(img,loc)
 
     enc10 = np.array(face_encoder.compute_face_descriptor(img, face_landmarks, 10))
-    print(np.linalg.norm(enc10-np.array(face_encoder.compute_face_descriptor(img, face_landmarks, 1))))
+    #print(np.linalg.norm(enc10-np.array(face_encoder.compute_face_descriptor(img, face_landmarks, 1))))
     return enc10
 
 test3 = cv2.imread('lucas.jpg')
@@ -64,6 +64,7 @@ test1 = cv2.imread('jacob.jpg')
 test4 = cv2.imread('zucc.jpg')
 test5 = cv2.imread('zucc2.jpg')
 test6 = cv2.imread('jacob2.jpg')
+test7 = cv2.imread('human04.jpg')
 names = ["jacob", "navid", "lucas", "mark", 'timothy']
 test = [test1, test2, test3, test4, test6]
 
@@ -74,19 +75,20 @@ ex1 = extract_face(lbp_face_cascade, test1)
 enc1 = get_face_encoding(test1,ex1 )
 enc2 = get_face_encoding(test2, extract_face(lbp_face_cascade, test2))
 enc3 = get_face_encoding(test3, extract_face(lbp_face_cascade, test3))
-print("hi3")
 enc4 = get_face_encoding(test4, extract_face(lbp_face_cascade, test4))
+enc5 = get_face_encoding(test5, extract_face(lbp_face_cascade, test5))
 enc6 = get_face_encoding(test6, extract_face(lbp_face_cascade, test6))
+enc7 = get_face_encoding(test7, extract_face(lbp_face_cascade, test7))
 enc = [enc1, enc2, enc3, enc4, enc6]
 
 rect = patches.Rectangle(ex1[0:2],ex1[2],ex1[3],linewidth=1,edgecolor='r',facecolor='none')
 
 fig,ax = plt.subplots(1)
 
-print('jacob-navid: ',np.linalg.norm(enc1-enc2))
-print('lucas-navid: ',np.linalg.norm(enc2-enc3))
-print('jacob-lucas: ',np.linalg.norm(enc1-enc3))
-print('zucc-tim: ',np.linalg.norm(enc4-enc6))
+#print('jacob-navid: ',np.linalg.norm(enc1-enc2))
+#print('lucas-navid: ',np.linalg.norm(enc2-enc3))
+#print('jacob-lucas: ',np.linalg.norm(enc1-enc3))
+#print('zucc-tim: ',np.linalg.norm(enc4-enc6))
 
 ax.imshow(test1, cmap='gray')
 ax.add_patch(rect)
@@ -108,8 +110,9 @@ while(True):
         finalframe = frame
         finalfacerect = facerect
         break
-    if parity:
-        facerect = extract_face(lbp_face_cascade, frame)
+    else:
+        cv2.putText(frame, "Press Q to Take Picture", (30, 100), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 0, 255))
+    facerect = extract_face(lbp_face_cascade, frame)
 
     if facerect is None:
         cv2.imshow('vid', frame)
@@ -135,6 +138,9 @@ for i in range(5):
         minIndex = i
 if minIndex == -1: print("No match")
 else: print("Match: ", names[minIndex])
-url = 'http://35.235.88.148'
-files = {'upload.jpg': finalframe}
-requests.post(url, files = files)
+
+url = 'http://35.235.88.148:3000/check'
+files = {'file': finalenc}
+r = requests.post(url, files = files)
+data = r.json()['isAllowed']
+print(data)
