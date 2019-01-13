@@ -75,14 +75,18 @@ router.post('/upload', function(req, res) {
 			con.query(sql, function (err, result) {
 				if (err) {
 					console.log(err);
-					res.status(400);
+					res.status(400).send({id: req.body.id});
 				}else{
 					console.log('image inserted');
-					var pythonProcess = spawn('python',["encodeface.py", req.file.filename]);
-					res.status(200);
+					message = '';
+					var pythonProcess = spawn('python',["encodeface.py", "./uploads/"+req.file.filename]);
+					pythonProcess.stdout.on('data', (data) => {
+							message = data.toString();
+							console.log(message);
+							res.status(200).send({id: req.body.id, message: message});
+					});
 				}
 			});
-			res.send({id: req.body.id});
 		}
 	})
 });
