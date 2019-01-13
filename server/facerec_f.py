@@ -3,6 +3,7 @@
 import cv2
 import argparse
 import glob
+import sys
 
 import numpy as np
 # import matplotlib
@@ -43,8 +44,6 @@ def extract_face(f_cascade, colored_img, scaleFactor=1.1):
     # assume one face
     if (len(faces) == 0): return None
     return faces[0]
-
-pose_predictor_68_point = dlib.shape_predictor('data/shape_predictor_68_face_landmarks.dat')
 
 pose_predictor_5_point = dlib.shape_predictor('data/shape_predictor_5_face_landmarks.dat')
 
@@ -91,9 +90,13 @@ minNorm = 0.45
 minIndex = -1;
 
 for i in range(len(enc)):
-    print(names[i] + '-image: ',np.linalg.norm(enc[i]-finalenc))
+    #print(names[i] + '-image: ',np.linalg.norm(enc[i]-finalenc))
     if np.linalg.norm(enc[i]-finalenc) < minNorm:
         minNorm = np.linalg.norm(enc[i]-finalenc)
         minIndex = i
-if minIndex == -1: print("No match")
-else: print("Match: ", names[minIndex])
+if minIndex == -1:
+	print("No match")
+	sys.stdout.flush()
+else:
+	print("Match: ", names[minIndex])
+	sys.stdout.flush()
