@@ -62,7 +62,7 @@ if __name__ == "__main__":
             outfilename = filename[0:lastdot] + '.dat'
 
             # open file in binary mode
-            f = open(outfilename, 'wb')
+            f = open("./dat/"+outfilename, 'wb')
 
             # this is not a string in the sense of str() but a Python bytes sequence
             s = enc.tostring()

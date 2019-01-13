@@ -5,6 +5,7 @@ var router = express.Router();
 var path = require('path');
 var bodyParser = require('body-parser');
 var sha = require('js-sha256');
+var spawn = require("child_process").spawn;
 var config = require('./config.js');
 
 var con = mysql.createConnection(config);
@@ -20,7 +21,7 @@ var storage = multer.diskStorage({
 	},
 	filename: function (req, file, callback) {
 		req.date = Date.now();
-		callback(null, req.body.username+ '_' + req.date+path.extname(file.originalname));
+		callback(null, req.body.username+ '_' + req.date+'.jpg');
 	}
 });
 
@@ -77,6 +78,7 @@ router.post('/upload', function(req, res) {
 					res.status(400);
 				}else{
 					console.log('image inserted');
+					var pythonProcess = spawn('python',["encodeface.py", req.file.filename]);
 					res.status(200);
 				}
 			});
