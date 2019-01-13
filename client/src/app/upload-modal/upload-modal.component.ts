@@ -12,6 +12,7 @@ export class UploadModalComponent implements OnInit {
   @Input() username: string;
   @Input() id: string;
   fileToUpload: File = null;
+  text: string;
 
   constructor(public activeModal: NgbActiveModal, private httpService: HttpService) { }
 
@@ -27,15 +28,16 @@ export class UploadModalComponent implements OnInit {
       response => {
         console.log(response.id);
         console.log(response.message);
+        this.text = response.message;
       },
       error => {
         console.log(error.status);
-      }
-    );
+        this.text = error.status;
+      });
   }
 
   closeModal() {
-    this.activeModal.close('Modal Closed');
+    this.activeModal.close();
   }
 
 }
